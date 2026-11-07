@@ -1,0 +1,222 @@
+{
+ "seed": 9310,
+ "predictions": {
+  "ml_f1": {
+   "text": "Ý là mình chưa có căn cứ nào để dự đoán F1 ấy =)) Nếu lạc quan thì mong rằng F1 sẽ đạt đc 0.6 cho lần train đầu tiên. Để so sánh thì 89 sample spam nhỏ hơn nhiều so với 775 sample ham; ngoài ra với mô hình linear khá đơn giản thì khả năng mô hình sẽ nghiêng về dự đoán ham cao hơn spam. Vì mô hình phải tối ưu tổng sai số của tập dữ liệu là thấp nhất nên nó thường có xu hướng đánh các spam thành ham nếu nó không có các keywords cực kì chắc chắn, khiến FN tăng và FP giảm. Từ đó thì có thể đoán được precision sẽ cao hơn recall.",
+   "time": "13:41:55"
+  },
+  "ml_lr": {
+   "text": "với lr = 0.001 thì đường cong sẽ giảm chậm hơn, nó phình hơn so với đồ thị gốc, còn với lr = 50 thì hàm loss khả năng sẽ lên xuống thất thường, thậm chí là không hội tụ được",
+   "time": "13:42:04"
+  },
+  "dl_curve": {
+   "text": "Val loss sẽ không giảm mãi và khả năng sẽ tốt hơn logistic regression ở F1",
+   "time": "13:42:22"
+  },
+  "dl_relu": {
+   "text": "mạng 2 lớp Linear liên tiếp tương đương với 1 mô hình logistic regression vì ở cuối ta vẫn còn hàm sigmoid. Dự đoán F1 khi so sánh với MLP trước đó khả năng sẽ tăng lên và ổn định lại tương đương với logistic regression trước đó.",
+   "time": "13:42:27"
+  },
+  "emb_search": {
+   "text": "Kết quả gần nhất là spam vì khi được embed theo ngữ nghĩa thì các từ có cùng 1 domain có giá trị vector biểu diễn gần nhau, khi qua các phép tính toán thì vẫn có thể tính ra xác suất gần với các từ quen thuộc",
+   "time": "13:43:21"
+  },
+  "emb_tricky": {
+   "text": "Mô hình Encoder + LogReg khả năng sẽ hơn vì với mô hình BoW, sự xuất hiện hay không xuất hiện của 1 từ spam 'điển hình' có tác động rất lớn đến dự đoán. Trong khi phương pháp còn lại giảm được yếu tố này hơn.",
+   "time": "13:43:55"
+  },
+  "llm_models": {
+   "text": "Nếu chỉ với các testcase đơn giản, khả năng kết quả không chênh lệch quá nhiều, có chăng thì mô hình lớn có lẽ sẽ cao hơn một chút. Tôi không có kinh nghiệm trong việc so sánh các model như trên bởi tôi không thường xuyên sử dụng API lắm. Trong đa phần trường hợp LLM khả năng sẽ thắng embedding trừ khi một số trường hợp đặc thù mà embedding được huấn luyện tinh chỉnh thêm sẽ có lợi thế hơn LLM với kiên thức tổng quát",
+   "time": "13:55:14"
+  },
+  "llm_fewshot": {
+   "text": "F1 tăng, tôi cũng không biết nữa, chắc 2 lần.",
+   "time": "14:15:57"
+  },
+  "tradeoff": {
+   "text": "Cách BoW + LogReg sẽ nằm trên Pareto vì nó là phương pháp nhanh nhất và có F1 rất cao",
+   "time": "14:43:03"
+  },
+  "hard_eval": {
+   "text": "1. Các mô hình BoW khả năng sẽ bị sụt giảm nặng chắc khoảng 50% vì chúng chỉ quan tâm đến sự xuất hiện của từ chứ không hiểu semantic của cả câu, trong khi các mô hình LLM/embedding có thể trụ vững hơn ở tầm 70%",
+   "time": "15:02:06"
+  }
+ },
+ "checks": {
+  "1.1 vectorize": true,
+  "1.2 sigmoid / predict_proba": true,
+  "1.3 train_logreg": true,
+  "1.4 metrics": true,
+  "2.1 build_mlp": true,
+  "2.2 train_mlp": true,
+  "3.1–3.2 cosine / top_k_similar": true,
+  "3.3 knn_predict": true,
+  "4.2–4.3 prompt / parse_label": true,
+  "4.1 + 4.4 call_openai / llm_classify_batch": true,
+  "tính tay: baseline_accuracy": true,
+  "tính tay: sigmoid_0": true,
+  "tính tay: f1_example": true,
+  "tính tay: cosine_example": true,
+  "tính tay: llm_cost_per_day": true
+ },
+ "experiments": [
+  {
+   "key": "ml_f1",
+   "time": "13:41:55"
+  },
+  {
+   "key": "ml_lr",
+   "time": "13:42:04"
+  },
+  {
+   "key": "dl_curve",
+   "time": "13:42:22"
+  },
+  {
+   "key": "dl_relu",
+   "time": "13:42:27"
+  },
+  {
+   "key": "emb_search",
+   "time": "13:43:21"
+  },
+  {
+   "key": "emb_tricky",
+   "time": "13:43:55"
+  },
+  {
+   "key": "llm_models",
+   "time": "13:55:18"
+  },
+  {
+   "key": "llm_models",
+   "time": "14:01:35"
+  },
+  {
+   "key": "llm_models",
+   "time": "14:10:51"
+  },
+  {
+   "key": "llm_models",
+   "time": "14:13:09"
+  },
+  {
+   "key": "llm_models",
+   "time": "14:14:19"
+  },
+  {
+   "key": "llm_fewshot",
+   "time": "14:16:04"
+  },
+  {
+   "key": "tradeoff",
+   "time": "14:44:35"
+  },
+  {
+   "key": "hard_eval",
+   "time": "15:02:09"
+  },
+  {
+   "key": "hard_eval",
+   "time": "15:42:41"
+  }
+ ],
+ "results": {
+  "1. BoW + LogReg (tự code)": {
+   "accuracy": 0.984516129032258,
+   "precision": 0.963855421686747,
+   "recall": 0.898876404494382,
+   "f1": 0.9302325581395349,
+   "f1_SUB": 0.9743589743589743,
+   "train_s": 2.3249408140000014,
+   "msg_per_s": 1139.9770493642313,
+   "p50_ms": 1.2447220000240122,
+   "p95_ms": 4.985021950045617,
+   "usd_per_1k": 0.0
+  },
+  "2. BoW + MLP (deep learning)": {
+   "accuracy": 0.984516129032258,
+   "precision": 0.9753086419753086,
+   "recall": 0.8876404494382022,
+   "f1": 0.9294117647058824,
+   "f1_SUB": 0.9743589743589743,
+   "train_s": 3.5720100959999854,
+   "msg_per_s": 1268.5653350057416,
+   "p50_ms": 1.2389464999955635,
+   "p95_ms": 4.118069850034089,
+   "usd_per_1k": 0.0
+  },
+  "3a. Encoder (MiniLM) + kNN": {
+   "accuracy": 0.9780645161290322,
+   "precision": 0.8673469387755102,
+   "recall": 0.9550561797752809,
+   "f1": 0.9090909090909091,
+   "f1_SUB": 0.975609756097561,
+   "train_s": 20.375608679000038,
+   "msg_per_s": 62.18879193855032,
+   "p50_ms": 94.44296850000455,
+   "p95_ms": 136.07435250000322,
+   "usd_per_1k": 0.0
+  },
+  "3b. Encoder (MiniLM) + LogReg": {
+   "accuracy": 0.9858064516129033,
+   "precision": 0.9431818181818182,
+   "recall": 0.9325842696629213,
+   "f1": 0.9378531073446328,
+   "f1_SUB": 0.9743589743589743,
+   "train_s": 22.304535006000037,
+   "msg_per_s": 115.94737895260056,
+   "p50_ms": 17.126129999951445,
+   "p95_ms": 25.690031649952516,
+   "usd_per_1k": 0.0
+  },
+  "3c. Encoder (MiniLM) + MLP head": {
+   "accuracy": 0.9819354838709677,
+   "precision": 0.9213483146067416,
+   "recall": 0.9213483146067416,
+   "f1": 0.9213483146067416,
+   "f1_SUB": 0.9230769230769231,
+   "train_s": 21.59823841000002,
+   "msg_per_s": 118.69503615379986,
+   "p50_ms": 12.688013000001774,
+   "p95_ms": 17.810083450086722,
+   "usd_per_1k": 0.0
+  },
+  "4a. LLM nhỏ zero-shot": {
+   "accuracy": 0.95,
+   "precision": 0.95,
+   "recall": 0.95,
+   "f1": 0.95,
+   "f1_SUB": 0.95,
+   "train_s": 0.0,
+   "msg_per_s": 1.5786295342337369,
+   "p50_ms": 602.0778714998869,
+   "p95_ms": 797.6422708001562,
+   "usd_per_1k": 0.008566666666666669
+  },
+  "4b. LLM lớn zero-shot": {
+   "accuracy": 0.95,
+   "precision": 0.95,
+   "recall": 0.95,
+   "f1": 0.95,
+   "f1_SUB": 0.95,
+   "train_s": 0.0,
+   "msg_per_s": 1.3184636948604342,
+   "p50_ms": 745.5387279999286,
+   "p95_ms": 879.8312066500553,
+   "usd_per_1k": 0.08566666666666667
+  },
+  "4c. LLM nhỏ few-shot": {
+   "accuracy": 0.925,
+   "precision": 0.9473684210526315,
+   "recall": 0.9,
+   "f1": 0.9230769230769231,
+   "f1_SUB": 0.9230769230769231,
+   "train_s": 0.0,
+   "msg_per_s": 1.5546206923826256,
+   "p50_ms": 597.6860260000194,
+   "p95_ms": 845.8145479497712,
+   "usd_per_1k": 0.020833333333333336
+  }
+ }
+}
